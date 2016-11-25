@@ -16,8 +16,8 @@ email=fredrikl@gvc.gu.se
 
 about=This plugin maps potential slope failures in cohesive soils
 
-tracker=https://github.com/biglimp/psf/issues
-repository=https://github.com/biglimp/psf
+tracker=https://github.com/biglimp/PotentialSlopeFailure/issues
+repository=https://github.com/biglimp/PotentialSlopeFailure
 # End of mandatory metadata
 
 # Recommended items:
@@ -28,7 +28,7 @@ repository=https://github.com/biglimp/psf
 # Tags are comma separated with spaces allowed
 tags=
 
-homepage=https://github.com/biglimp/psf
+homepage=https://github.com/biglimp/PotentialSlopeFailure/wiki
 category=Plugins
 icon=iconpsf.png
 # experimental flag

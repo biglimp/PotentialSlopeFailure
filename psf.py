@@ -181,7 +181,7 @@ class PotentialSlopeFailure:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/PotentialSlopeFailure/icon.png'
+        icon_path = ':/plugins/PotentialSlopeFailure/iconpsf.png'
         self.add_action(
             icon_path,
             text=self.tr(u''),
@@ -270,11 +270,6 @@ class PotentialSlopeFailure:
         zon1[zon1 == 1] = 2
         zon1[zon1 < 1] = 1
         karta1a = zon1 * soil
-        # karta1a[karta1a > 0 and karta1a < 1] = 1
-
-
-        # karta1a[zon1 == 0] = 3
-
         karta1a[karta1a == 0] = 3
 
         filename = self.folderPath[0] + '/karta1a.tif'
@@ -284,10 +279,14 @@ class PotentialSlopeFailure:
         if self.dlg.checkBoxIntoCanvas.isChecked():
             rlayer = self.iface.addRasterLayer(filename)
 
-            # Set opacity
-            rlayer.renderer().setOpacity(0.5)
-
             # Trigger a repaint
+            if hasattr(rlayer, "setCacheImage"):
+                rlayer.setCacheImage(None)
+            rlayer.triggerRepaint()
+
+            rlayer.loadNamedStyle(self.plugin_dir + '/karta1a.qml')
+            # self.QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+
             if hasattr(rlayer, "setCacheImage"):
                 rlayer.setCacheImage(None)
             rlayer.triggerRepaint()

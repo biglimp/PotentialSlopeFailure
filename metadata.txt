@@ -30,7 +30,7 @@ tags=
 
 homepage=https://github.com/biglimp/psf
 category=Plugins
-icon=icon.png
+icon=iconpsf.png
 # experimental flag
 experimental=True
 

@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/plugins/PotentialSlopeFailure" >
-        <file>icon.png</file>
+        <file>iconpsf.png</file>
     </qresource>
 </RCC>

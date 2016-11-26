@@ -30,7 +30,7 @@ tags=
 
 homepage=https://github.com/biglimp/PotentialSlopeFailure/wiki
 category=Plugins
-icon=iconpsf.png
+icon=icon.png
 # experimental flag
 experimental=True
 

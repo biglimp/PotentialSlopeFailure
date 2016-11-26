@@ -29,7 +29,7 @@ from psf_dialog import PotentialSlopeFailureDialog
 import os.path
 from qgiscombomanager import *
 import webbrowser
-from osgeo import gdal, osr
+from osgeo import gdal
 import numpy as np
 import shadowingfunctions as shadow
 from osgeo.gdalconst import *
@@ -181,10 +181,10 @@ class PotentialSlopeFailure:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/PotentialSlopeFailure/iconpsf.png'
+        icon_path = ':/plugins/PotentialSlopeFailure/icon.png'
         self.add_action(
             icon_path,
-            text=self.tr(u''),
+            text=self.tr(u'Calculates areas prone to slope failures in cohesive soils'),
             callback=self.run,
             parent=self.iface.mainWindow())
 
@@ -285,15 +285,13 @@ class PotentialSlopeFailure:
             rlayer.triggerRepaint()
 
             rlayer.loadNamedStyle(self.plugin_dir + '/karta1a.qml')
-            # self.QgsMapLayerRegistry.instance().addMapLayer(rlayer)
 
             if hasattr(rlayer, "setCacheImage"):
                 rlayer.setCacheImage(None)
             rlayer.triggerRepaint()
 
     def help(self):
-        # url = "file://" + self.plugin_dir + "/help/Index.html"
-        url = "http://www.urban-climate.net/umep/UMEP_Manual#Solar_Radiation:_Daily_Shadow_Pattern"
+        url = "https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS"
         webbrowser.open_new_tab(url)
 
     def run(self):
@@ -304,9 +302,7 @@ class PotentialSlopeFailure:
         rows = gdal_data.RasterYSize
         cols = gdal_data.RasterXSize
 
-        # outDs = gdal.GetDriverByName("GTiff").Create(folder + 'shadow' + tv + '.tif', cols, rows, int(1), GDT_Float32)
         outDs = gdal.GetDriverByName("GTiff").Create(filename, cols, rows, int(1), GDT_Float32)
-        # outDs = gdal.GetDriverByName(gdal_data.GetDriver().LongName).Create(filename, cols, rows, int(1), GDT_Float32)
         outBand = outDs.GetRasterBand(1)
 
         # write the data

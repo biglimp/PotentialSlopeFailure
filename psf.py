@@ -79,10 +79,10 @@ class PotentialSlopeFailure:
         self.toolbar = self.iface.addToolBar(u'PotentialSlopeFailure')
         self.toolbar.setObjectName(u'PotentialSlopeFailure')
 
-        # self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
-        # RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
-        # self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
-        # RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
+        self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
+        RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
+        self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
+        RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
 
         self.folderPath = 'None'
 

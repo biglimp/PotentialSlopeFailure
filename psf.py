@@ -23,7 +23,7 @@
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import *
 # Initialize Qt resources from file resources.py
-# import resources
+import resources_rc
 # Import the code for the dialog
 from psf_dialog import PotentialSlopeFailureDialog
 import os.path
@@ -79,10 +79,10 @@ class PotentialSlopeFailure:
         self.toolbar = self.iface.addToolBar(u'PotentialSlopeFailure')
         self.toolbar.setObjectName(u'PotentialSlopeFailure')
 
-        self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
-        RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
-        self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
-        RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
+        # self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
+        # RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
+        # self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
+        # RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
 
         self.folderPath = 'None'
 
@@ -170,9 +170,7 @@ class PotentialSlopeFailure:
             self.toolbar.addAction(action)
 
         if add_to_menu:
-            self.iface.addPluginToMenu(
-                self.menu,
-                action)
+            self.iface.addPluginToMenu(self.menu, action)
 
         self.actions.append(action)
 

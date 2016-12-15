@@ -28,7 +28,7 @@ repository=https://github.com/biglimp/PotentialSlopeFailure
 # Tags are comma separated with spaces allowed
 tags=
 
-homepage=https://github.com/biglimp/PotentialSlopeFailure/wiki
+homepage=https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS
 category=Plugins
 icon=icon.png
 # experimental flag

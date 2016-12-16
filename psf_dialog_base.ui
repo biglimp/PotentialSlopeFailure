@@ -14,41 +14,7 @@
    <string>Potential Slope Failure</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="6" column="8">
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Close</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1" colspan="7">
-    <widget class="QCheckBox" name="checkBoxIntoCanvas">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="text">
-      <string>Add result to project</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QPushButton" name="pushButtonHelp">
-     <property name="text">
-      <string>Help</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="8">
-    <widget class="QPushButton" name="runButton">
-     <property name="cursor">
-      <cursorShape>ArrowCursor</cursorShape>
-     </property>
-     <property name="text">
-      <string>Run</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0" colspan="8">
+   <item row="8" column="0" colspan="8">
     <widget class="QProgressBar" name="progressBar">
      <property name="value">
       <number>0</number>
@@ -58,37 +24,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="8">
-    <widget class="QPushButton" name="pushButtonSave">
-     <property name="text">
-      <string>Select</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Output folder:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="8">
-    <widget class="QSpinBox" name="spinBoxAlt">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="maximum">
-      <number>89</number>
-     </property>
-     <property name="value">
-      <number>10</number>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="6" colspan="2">
+   <item row="5" column="6" colspan="2">
     <widget class="QLabel" name="label_5">
      <property name="text">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -102,20 +38,14 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </item>
-   <item row="2" column="3" colspan="2">
-    <widget class="QSpinBox" name="spinBoxIter">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="maximum">
-      <number>360</number>
-     </property>
-     <property name="value">
-      <number>16</number>
+   <item row="7" column="8">
+    <widget class="QPushButton" name="pushButtonSave">
+     <property name="text">
+      <string>Select</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
+   <item row="5" column="0" colspan="3">
     <widget class="QLabel" name="label_8">
      <property name="text">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -129,20 +59,7 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </item>
-   <item row="3" column="3">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>45</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="5">
+   <item row="5" column="5">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -155,13 +72,121 @@ p, li { white-space: pre-wrap; }
      </property>
     </spacer>
    </item>
-   <item row="4" column="2" colspan="6">
+   <item row="7" column="0" colspan="2">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Output folder:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="8">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1" colspan="7">
+    <widget class="QCheckBox" name="checkBoxIntoCanvas">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Add result to project</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="6" colspan="3">
+    <widget class="QWidget" name="widgetSOIL" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>175</width>
+       <height>30</height>
+      </size>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3"/>
+    </widget>
+   </item>
+   <item row="8" column="8">
+    <widget class="QPushButton" name="runButton">
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Run</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QPushButton" name="pushButtonHelp">
+     <property name="text">
+      <string>Help</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="8">
+    <widget class="QSpinBox" name="spinBoxAlt">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="maximum">
+      <number>89</number>
+     </property>
+     <property name="value">
+      <number>10</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3" colspan="2">
+    <widget class="QSpinBox" name="spinBoxIter">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="maximum">
+      <number>360</number>
+     </property>
+     <property name="value">
+      <number>16</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>45</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="7" column="2" colspan="6">
     <widget class="QLineEdit" name="textOutput"/>
    </item>
-   <item row="0" column="0" colspan="6">
-    <widget class="QLabel" name="label">
+   <item row="1" column="6" colspan="3">
+    <widget class="QWidget" name="widgetDEM" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>175</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2"/>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="6">
+    <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Digital elevation model (DEM)</string>
+      <string>Cohesive soils (1 = Cohesive Soil, 0 = Other):</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -169,20 +194,14 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item row="1" column="0" colspan="6">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Cohesive soils (1 = Cohesive Soil, 0 = Other)</string>
+      <string>Digital elevation model (DEM):</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-   </item>
-   <item row="0" column="7" colspan="2">
-    <widget class="QComboBox" name="comboBoxDem"/>
-   </item>
-   <item row="1" column="7" colspan="2">
-    <widget class="QComboBox" name="comboBoxSoil"/>
    </item>
   </layout>
  </widget>

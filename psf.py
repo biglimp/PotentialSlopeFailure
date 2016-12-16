@@ -22,12 +22,13 @@
 """
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import *
+from qgis.gui import *
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialog
 from psf_dialog import PotentialSlopeFailureDialog
 import os.path
-from qgiscombomanager import *
+#from misc import *
 import webbrowser
 from osgeo import gdal
 import numpy as np
@@ -79,11 +80,16 @@ class PotentialSlopeFailure:
         self.toolbar = self.iface.addToolBar(u'PotentialSlopeFailure')
         self.toolbar.setObjectName(u'PotentialSlopeFailure')
 
-        self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
-        RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
-        self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
-        RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
-
+        # self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
+        # RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
+        # self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
+        # RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
+        self.layerComboManagerDEM = QgsMapLayerComboBox(self.dlg.widgetDEM)
+        self.layerComboManagerDEM.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        self.layerComboManagerDEM.setFixedWidth(175)
+        self.layerComboManagerSOIL = QgsMapLayerComboBox(self.dlg.widgetSOIL)
+        self.layerComboManagerSOIL.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        self.layerComboManagerSOIL.setFixedWidth(175)
         self.folderPath = 'None'
 
     # noinspection PyMethodMayBeStatic
@@ -209,7 +215,8 @@ class PotentialSlopeFailure:
             return
 
         # Load DEM
-        demlayer = self.layerComboManagerDEM.getLayer()
+        # demlayer = self.layerComboManagerDEM.getLayer()
+        demlayer = self.layerComboManagerDEM.currentLayer()
 
         if demlayer is None:
             QMessageBox.critical(None, "Error", "No valid DEM raster layer is selected")
@@ -228,7 +235,7 @@ class PotentialSlopeFailure:
         scale = 1 / geotransform[1]
 
         # Load Soil
-        soillayer = self.layerComboManagerSOIL.getLayer()
+        soillayer = self.layerComboManagerSOIL.currentLayer()
 
         if soillayer is None:
             QMessageBox.critical(None, "Error", "No valid Soil raster selected")
@@ -270,7 +277,7 @@ class PotentialSlopeFailure:
         karta1a = zon1 * soil
         karta1a[karta1a == 0] = 3
 
-        filename = self.folderPath[0] + '/karta1a.tif'
+        filename = self.folderPath[0] + '/map1a.tif'
         self.saveraster(gdal_dem, filename, karta1a)
 
         # load result into canvas
@@ -282,7 +289,7 @@ class PotentialSlopeFailure:
                 rlayer.setCacheImage(None)
             rlayer.triggerRepaint()
 
-            rlayer.loadNamedStyle(self.plugin_dir + '/karta1a.qml')
+            rlayer.loadNamedStyle(self.plugin_dir + '/misc/map1a.qml')
 
             if hasattr(rlayer, "setCacheImage"):
                 rlayer.setCacheImage(None)

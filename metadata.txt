@@ -10,7 +10,7 @@
 name=Potential Slope Failure
 qgisMinimumVersion=2.0
 description=This plugin maps potential slope failures in cohesive soils
-version=0.2
+version=0.3
 author=Fredrik Lindberg, Gothenburg University
 email=fredrikl@gvc.gu.se
 

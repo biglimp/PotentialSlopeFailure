@@ -215,7 +215,6 @@ class PotentialSlopeFailure:
             return
 
         # Load DEM
-        # demlayer = self.layerComboManagerDEM.getLayer()
         demlayer = self.layerComboManagerDEM.currentLayer()
 
         if demlayer is None:
@@ -263,8 +262,11 @@ class PotentialSlopeFailure:
         # Inverting dem
         dem = dem * (-1.) + np.max(dem)
 
+        self.dlg.progressBar.setRange(0, self.dlg.spinBoxIter.value())
+
         for i in range(0, self.dlg.spinBoxIter.value()):
             azi = itera * i
+            self.dlg.progressBar.setValue(i + 1)
             # self.iface.messageBar().pushMessage("ShadowGenerator", str(azi))
             sh = shadow.shadowingfunctionglobalradiation(dem, azi, alt, scale, self.dlg, 1)
             shtot = shtot + sh
@@ -294,6 +296,8 @@ class PotentialSlopeFailure:
             if hasattr(rlayer, "setCacheImage"):
                 rlayer.setCacheImage(None)
             rlayer.triggerRepaint()
+
+        self.dlg.progressBar.setValue(0)
 
     def help(self):
         url = "https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS"

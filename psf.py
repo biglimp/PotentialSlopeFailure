@@ -299,6 +299,9 @@ class PotentialSlopeFailure:
 
         self.dlg.progressBar.setValue(0)
 
+
+        QMessageBox.information(self.dlg, "Calculation done!", "Output (map1a.tif) created in: " + self.folderPath[0] + "/")
+
     def help(self):
         url = "https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS"
         webbrowser.open_new_tab(url)

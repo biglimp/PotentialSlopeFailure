@@ -14,7 +14,7 @@ version=0.3
 author=Fredrik Lindberg, Gothenburg University
 email=fredrikl@gvc.gu.se
 
-about=This plugin maps potential slope failures in cohesive soils
+about=This plugin maps potential slope failures in cohesive soils by making use of a raster-based shadowcasting algorithm. The method is explained in detail in Lindberg, Olvmo and Bergdahl (2011). (http://www.sciencedirect.com/science/article/pii/S0266352X11000693)
 
 tracker=https://github.com/biglimp/PotentialSlopeFailure/issues
 repository=https://github.com/biglimp/PotentialSlopeFailure
@@ -24,6 +24,9 @@ repository=https://github.com/biglimp/PotentialSlopeFailure
 
 # Uncomment the following line and add your changelog:
 # changelog=
+    0.3   : Added progressbar and additional metadata.
+    0.2   : Removed qgiscombomanager
+    0.1   : Official release, VERSION 0.1 BETA
 
 # Tags are comma separated with spaces allowed
 tags=

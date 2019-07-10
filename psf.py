@@ -27,14 +27,14 @@ from builtins import object
 from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from qgis.PyQt.QtWidgets import QFileDialog, QAction, QMessageBox
 from qgis.PyQt.QtGui import QIcon
-from qgis.gui import *
+from qgis.gui import QgsMapLayerComboBox
 from qgis.core import QgsMapLayerProxyModel
 # Initialize Qt resources from file resources.py
-from . import resources_rc
+from . import resources
 # Import the code for the dialog
 from .psf_dialog import PotentialSlopeFailureDialog
 import os.path
-#from misc import *
+# from misc import *
 import webbrowser
 from osgeo import gdal
 import numpy as np
@@ -59,10 +59,7 @@ class PotentialSlopeFailure(object):
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
-        locale_path = os.path.join(
-            self.plugin_dir,
-            'i18n',
-            'PotentialSlopeFailure_{}.qm'.format(locale))
+        locale_path = os.path.join(self.plugin_dir, 'i18n', 'PotentialSlopeFailure_{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -71,22 +68,20 @@ class PotentialSlopeFailure(object):
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-        self.dlg = PotentialSlopeFailureDialog()
+        self.dlg = PotentialSlopeFailureDialog(self.iface)
         self.dlg.runButton.clicked.connect(self.start_progress)
         self.dlg.pushButtonHelp.clicked.connect(self.help)
         self.dlg.pushButtonSave.clicked.connect(self.folder_path)
         self.fileDialog = QFileDialog()
-        # self.fileDialog.setFileMode(4)
-        # self.fileDialog.setAcceptMode(1)
         self.fileDialog.setFileMode(QFileDialog.Directory)
         self.fileDialog.setOption(QFileDialog.ShowDirsOnly, True)
 
         # Declare instance attributes
-        self.actions = []
-        self.menu = self.tr(u'&Potential Slope Failure')
+        #self.actions = []
+        #self.menu = self.tr(u'&Potential Slope Failure')
         # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar(u'PotentialSlopeFailure')
-        self.toolbar.setObjectName(u'PotentialSlopeFailure')
+        #self.toolbar = self.iface.addToolBar(u'PotentialSlopeFailure')
+        #self.toolbar.setObjectName(u'PotentialSlopeFailure')
 
         # self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
         # RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
@@ -116,99 +111,117 @@ class PotentialSlopeFailure(object):
         return QCoreApplication.translate('PotentialSlopeFailure', message)
 
 
-    def add_action(
-        self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        status_tip=None,
-        whats_this=None,
-        parent=None):
-        """Add a toolbar icon to the toolbar.
-
-        :param icon_path: Path to the icon for this action. Can be a resource
-            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
-        :type icon_path: str
-
-        :param text: Text that should be shown in menu items for this action.
-        :type text: str
-
-        :param callback: Function to be called when the action is triggered.
-        :type callback: function
-
-        :param enabled_flag: A flag indicating if the action should be enabled
-            by default. Defaults to True.
-        :type enabled_flag: bool
-
-        :param add_to_menu: Flag indicating whether the action should also
-            be added to the menu. Defaults to True.
-        :type add_to_menu: bool
-
-        :param add_to_toolbar: Flag indicating whether the action should also
-            be added to the toolbar. Defaults to True.
-        :type add_to_toolbar: bool
-
-        :param status_tip: Optional text to show in a popup when mouse pointer
-            hovers over the action.
-        :type status_tip: str
-
-        :param parent: Parent widget for the new action. Defaults None.
-        :type parent: QWidget
-
-        :param whats_this: Optional text to show in the status bar when the
-            mouse pointer hovers over the action.
-
-        :returns: The action that was created. Note that the action is also
-            added to self.actions list.
-        :rtype: QAction
-        """
-
-        # Create the dialog (after translation) and keep reference
-        # self.dlg = PotentialSlopeFailureDialog()
-
-        icon = QIcon(icon_path)
-        action = QAction(icon, text, parent)
-        action.triggered.connect(callback)
-        action.setEnabled(enabled_flag)
-
-        if status_tip is not None:
-            action.setStatusTip(status_tip)
-
-        if whats_this is not None:
-            action.setWhatsThis(whats_this)
-
-        if add_to_toolbar:
-            self.toolbar.addAction(action)
-
-        if add_to_menu:
-            self.iface.addPluginToMenu(self.menu, action)
-
-        self.actions.append(action)
-
-        return action
+    # def add_action(
+    #     self,
+    #     icon_path,
+    #     text,
+    #     callback,
+    #     enabled_flag=True,
+    #     add_to_menu=True,
+    #     add_to_toolbar=True,
+    #     status_tip=None,
+    #     whats_this=None,
+    #     parent=None):
+    #     """Add a toolbar icon to the toolbar.
+    #
+    #     :param icon_path: Path to the icon for this action. Can be a resource
+    #         path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
+    #     :type icon_path: str
+    #
+    #     :param text: Text that should be shown in menu items for this action.
+    #     :type text: str
+    #
+    #     :param callback: Function to be called when the action is triggered.
+    #     :type callback: function
+    #
+    #     :param enabled_flag: A flag indicating if the action should be enabled
+    #         by default. Defaults to True.
+    #     :type enabled_flag: bool
+    #
+    #     :param add_to_menu: Flag indicating whether the action should also
+    #         be added to the menu. Defaults to True.
+    #     :type add_to_menu: bool
+    #
+    #     :param add_to_toolbar: Flag indicating whether the action should also
+    #         be added to the toolbar. Defaults to True.
+    #     :type add_to_toolbar: bool
+    #
+    #     :param status_tip: Optional text to show in a popup when mouse pointer
+    #         hovers over the action.
+    #     :type status_tip: str
+    #
+    #     :param parent: Parent widget for the new action. Defaults None.
+    #     :type parent: QWidget
+    #
+    #     :param whats_this: Optional text to show in the status bar when the
+    #         mouse pointer hovers over the action.
+    #
+    #     :returns: The action that was created. Note that the action is also
+    #         added to self.actions list.
+    #     :rtype: QAction
+    #     """
+    #
+    #     # Create the dialog (after translation) and keep reference
+    #     # self.dlg = PotentialSlopeFailureDialog()
+    #
+    #     icon = QIcon(icon_path)
+    #     action = QAction(icon, text, parent)
+    #     action.triggered.connect(callback)
+    #     action.setEnabled(enabled_flag)
+    #
+    #     if status_tip is not None:
+    #         action.setStatusTip(status_tip)
+    #
+    #     if whats_this is not None:
+    #         action.setWhatsThis(whats_this)
+    #
+    #     if add_to_toolbar:
+    #         self.toolbar.addAction(action)
+    #
+    #     if add_to_menu:
+    #         self.iface.addPluginToMenu(self.menu, action)
+    #
+    #     self.actions.append(action)
+    #
+    #     return action
 
     def initGui(self):
-        """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        # Create action that will start plugin configuration
+        self.action = QAction(
+            QIcon(':/plugins/PotentialSlopeFailure/slopeicon.png'),
+            'Calculates areas prone to slope failures in cohesive soils', self.iface.mainWindow())
+        # connect the action to the run method
+        self.action.triggered.connect(self.run)
 
-        icon_path = ':/plugins/PotentialSlopeFailure/icon.png'
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Calculates areas prone to slope failures in cohesive soils'),
-            callback=self.run,
-            parent=self.iface.mainWindow())
+        # Add toolbar button and menu item
+        self.iface.addToolBarIcon(self.action)
+        self.iface.addPluginToMenu(self.tr("&Potential Slope Failure"), self.action)
+
+
+        #"""Create the menu entries and toolbar icons inside the QGIS GUI."""
+        #
+        #icon_path = ':/plugins/PotentialSlopeFailure/icon.png'
+        #self.add_action(
+        #    icon_path,
+         #   text=self.tr(u'Calculates areas prone to slope failures in cohesive soils'),
+         #   callback=self.run,
+         #   parent=self.iface.mainWindow())
 
     def unload(self):
-        """Removes the plugin menu item and icon from QGIS GUI."""
-        for action in self.actions:
-            self.iface.removePluginMenu(
-                self.tr(u'&Potential Slope Failure'),
-                action)
-            self.iface.removeToolBarIcon(action)
+        # Remove the plugin menu item and icon
+        self.iface.removePluginMenu("&Potential Slope Failure", self.action)
+        self.iface.removeToolBarIcon(self.action)
+        # """Removes the plugin menu item and icon from QGIS GUI."""
+        # for action in self.actions: self.iface.removePluginMenu(
+        #         self.tr(u'&Potential Slope Failure'),
+        #         action)
+        #     self.iface.removeToolBarIcon(action)
         # remove the toolbar
-        del self.toolbar
+        # del self.toolbar
+
+    def run(self):
+        self.dlg.show()
+        self.dlg.exec_()
 
     def folder_path(self):
         self.fileDialog.open()
@@ -307,16 +320,11 @@ class PotentialSlopeFailure(object):
 
         self.dlg.progressBar.setValue(0)
 
-
         QMessageBox.information(self.dlg, "Calculation done!", "Output (map1a.tif) created in: " + self.folderPath[0] + "/")
 
     def help(self):
         url = "https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS"
         webbrowser.open_new_tab(url)
-
-    def run(self):
-        self.dlg.show()
-        self.dlg.exec_()
 
     def saveraster(self, gdal_data, filename, raster):
         rows = gdal_data.RasterYSize

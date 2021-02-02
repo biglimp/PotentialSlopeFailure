@@ -34,7 +34,7 @@ tags=
 
 homepage=https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS
 category=Plugins
-icon=icons/icon_umep.png
+icon=icons/icon.png
 # experimental flag
 experimental=False
 

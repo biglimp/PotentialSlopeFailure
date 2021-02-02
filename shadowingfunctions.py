@@ -4,7 +4,7 @@ import numpy as np
 # import matplotlib.pylab as plt
 
 
-def shadowingfunctionglobalradiation(a, azimuth, altitude, scale, dlg, forsvf):
+def shadowingfunctionglobalradiation(a, azimuth, altitude, scale, feedback, forsvf):
 
     #%This m.file calculates shadows on a DEM
     #% conversion
@@ -16,8 +16,6 @@ def shadowingfunctionglobalradiation(a, azimuth, altitude, scale, dlg, forsvf):
     sizey = a.shape[1]
     if forsvf == 0:
         barstep = np.max([sizex, sizey])
-        dlg.progressBar.setRange(0, barstep)
-        dlg.progressBar.setValue(0)
     #% initialise parameters
     f = a
     dx = 0.
@@ -42,7 +40,10 @@ def shadowingfunctionglobalradiation(a, azimuth, altitude, scale, dlg, forsvf):
     #% main loop
     while (amaxvalue >= dz and np.abs(dx) < sizex and np.abs(dy) < sizey):
         if forsvf == 0:
-            dlg.progressBar.setValue(index)
+            if feedback.isCanceled():
+                break
+            feedback.setProgress(int(index * (100 / barstep)))
+            #dlg.progressBar.setValue(index)
     #while np.logical_and(np.logical_and(amaxvalue >= dz, np.abs(dx) <= sizex), np.abs(dy) <= sizey):(np.logical_and(amaxvalue >= dz, np.abs(dx) <= sizex), np.abs(dy) <= sizey):
         #if np.logical_or(np.logical_and(pibyfour <= azimuth, azimuth < threetimespibyfour), np.logical_and(fivetimespibyfour <= azimuth, azimuth < seventimespibyfour)):
         if (pibyfour <= azimuth and azimuth < threetimespibyfour or fivetimespibyfour <= azimuth and azimuth < seventimespibyfour):
@@ -92,8 +93,8 @@ def shadowingfunction_20(a, vegdem, vegdem2, azimuth, altitude, scale, amaxvalue
     #% initialise parameters
     if forsvf == 0:
         barstep = np.max([sizex, sizey])
-        dlg.progressBar.setRange(0, barstep)
-        dlg.progressBar.setValue(0)
+        #dlg.progressBar.setRange(0, barstep)
+        #dlg.progressBar.setValue(0)
 
     dx = 0.
     dy = 0.

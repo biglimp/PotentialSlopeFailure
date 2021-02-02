@@ -4,10 +4,11 @@
 # embedding metadata in __init__.py will 
 # is no longer supported since version 2.0.
 
-# This file should be included when you package your plugin.# Mandatory items:
+# This file should be included when you package your plugin.
+# Mandatory items:
 
 [general]
-name=Potential Slope Failure
+name=Potential Slope Failure for processing
 qgisMinimumVersion=3.0
 description=This plugin maps potential slope failures in cohesive soils
 version=0.6
@@ -22,22 +23,18 @@ repository=https://github.com/biglimp/PotentialSlopeFailure
 
 # Recommended items:
 
+hasProcessingProvider=yes
+
 # Uncomment the following line and add your changelog:
 # changelog=
-    0.6   : Resolved missing import
-    0.5.1 : Resolved missing import
-    0.5   : Removing experimental tag
-    0.4   : Adjusted for QGIS3.
-    0.3   : Added progressbar and additional metadata.
-    0.2   : Removed qgiscombomanager
-    0.1   : Official release, VERSION 0.1 BETA
+    0.1   : Official release, VERSION 0.1 of Potential Slope Failure for processing
 
 # Tags are comma separated with spaces allowed
 tags=
 
 homepage=https://github.com/biglimp/PotentialSlopeFailure/wiki/Potential-Slope-Failure-plugin-for-QGIS
 category=Plugins
-icon=slopeicon.png
+icon=icons/icon_umep.png
 # experimental flag
 experimental=False
 

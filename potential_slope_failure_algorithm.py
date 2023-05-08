@@ -126,7 +126,7 @@ class ProcessingPotentialSlopeFailureAlgorithm(QgsProcessingAlgorithm):
 
         gdal_dem = gdal.Open(filepath_dem)
 
-        dem = gdal_dem.ReadAsArray().astype(np.float)
+        dem = gdal_dem.ReadAsArray().astype(float)
         sizex = dem.shape[0]
         sizey = dem.shape[1]
 
@@ -143,7 +143,7 @@ class ProcessingPotentialSlopeFailureAlgorithm(QgsProcessingAlgorithm):
         provider = soillayer.dataProvider()
         filePathOld = str(provider.dataSourceUri())
         dataSet = gdal.Open(filePathOld)
-        soil = dataSet.ReadAsArray().astype(np.float)
+        soil = dataSet.ReadAsArray().astype(float)
 
         soilsizex = soil.shape[0]
         soilsizey = soil.shape[1]

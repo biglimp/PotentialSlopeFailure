@@ -68,32 +68,25 @@ class PotentialSlopeFailure(object):
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-        self.dlg = PotentialSlopeFailureDialog(self.iface)
-        self.dlg.runButton.clicked.connect(self.start_progress)
-        self.dlg.pushButtonHelp.clicked.connect(self.help)
-        self.dlg.pushButtonSave.clicked.connect(self.folder_path)
-        self.fileDialog = QFileDialog()
-        self.fileDialog.setFileMode(QFileDialog.Directory)
-        self.fileDialog.setOption(QFileDialog.ShowDirsOnly, True)
+        # self.dlg = PotentialSlopeFailureDialog(self.iface)
+        # self.dlg.runButton.clicked.connect(self.start_progress)
+        # self.dlg.pushButtonHelp.clicked.connect(self.help)
+        # self.dlg.pushButtonSave.clicked.connect(self.folder_path)
+        # self.fileDialog = QFileDialog()
+        # self.fileDialog.setFileMode(QFileDialog.Directory)
+        # self.fileDialog.setOption(QFileDialog.ShowDirsOnly, True)
 
-        # Declare instance attributes
-        #self.actions = []
-        #self.menu = self.tr(u'&Potential Slope Failure')
-        # TODO: We are going to let the user set this up in a future iteration
-        #self.toolbar = self.iface.addToolBar(u'PotentialSlopeFailure')
-        #self.toolbar.setObjectName(u'PotentialSlopeFailure')
+        # self.layerComboManagerDEM = QgsMapLayerComboBox(self.dlg.widgetDEM)
+        # self.layerComboManagerDEM.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        # self.layerComboManagerDEM.setFixedWidth(175)
+        # self.layerComboManagerSOIL = QgsMapLayerComboBox(self.dlg.widgetSOIL)
+        # self.layerComboManagerSOIL.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        # self.layerComboManagerSOIL.setFixedWidth(175)
+        # self.folderPath = 'None'
 
-        # self.layerComboManagerDEM = RasterLayerCombo(self.dlg.comboBoxDem)
-        # RasterLayerCombo(self.dlg.comboBoxDem, initLayer="")
-        # self.layerComboManagerSOIL = RasterLayerCombo(self.dlg.comboBoxSoil)
-        # RasterLayerCombo(self.dlg.comboBoxSoil, initLayer="")
-        self.layerComboManagerDEM = QgsMapLayerComboBox(self.dlg.widgetDEM)
-        self.layerComboManagerDEM.setFilters(QgsMapLayerProxyModel.RasterLayer)
-        self.layerComboManagerDEM.setFixedWidth(175)
-        self.layerComboManagerSOIL = QgsMapLayerComboBox(self.dlg.widgetSOIL)
-        self.layerComboManagerSOIL.setFilters(QgsMapLayerProxyModel.RasterLayer)
-        self.layerComboManagerSOIL.setFixedWidth(175)
-        self.folderPath = 'None'
+        # class members
+        self.action = None
+        self.dlg = None
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -188,7 +181,7 @@ class PotentialSlopeFailure(object):
     def initGui(self):
         # Create action that will start plugin configuration
         self.action = QAction(
-            QIcon(':/plugins/PotentialSlopeFailure/slopeicon.png'),
+            QIcon(':/plugins/PotentialSlopeFailure/icon.png'),
             'Calculates areas prone to slope failures in cohesive soils', self.iface.mainWindow())
         # connect the action to the run method
         self.action.triggered.connect(self.run)
@@ -220,6 +213,21 @@ class PotentialSlopeFailure(object):
         # del self.toolbar
 
     def run(self):
+        self.dlg = PotentialSlopeFailureDialog(self.iface)
+        self.dlg.runButton.clicked.connect(self.start_progress)
+        self.dlg.pushButtonHelp.clicked.connect(self.help)
+        self.dlg.pushButtonSave.clicked.connect(self.folder_path)
+        self.fileDialog = QFileDialog()
+        self.fileDialog.setFileMode(QFileDialog.Directory)
+        self.fileDialog.setOption(QFileDialog.ShowDirsOnly, True)
+
+        self.layerComboManagerDEM = QgsMapLayerComboBox(self.dlg.widgetDEM)
+        self.layerComboManagerDEM.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        self.layerComboManagerDEM.setFixedWidth(175)
+        self.layerComboManagerSOIL = QgsMapLayerComboBox(self.dlg.widgetSOIL)
+        self.layerComboManagerSOIL.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        self.layerComboManagerSOIL.setFixedWidth(175)
+        self.folderPath = 'None'
         self.dlg.show()
         self.dlg.exec_()
 
@@ -247,7 +255,7 @@ class PotentialSlopeFailure(object):
 
         gdal_dem = gdal.Open(filepath_dem)
 
-        dem = gdal_dem.ReadAsArray().astype(np.float)
+        dem = gdal_dem.ReadAsArray().astype(float)
         sizex = dem.shape[0]
         sizey = dem.shape[1]
 
@@ -266,7 +274,7 @@ class PotentialSlopeFailure(object):
         provider = soillayer.dataProvider()
         filePathOld = str(provider.dataSourceUri())
         dataSet = gdal.Open(filePathOld)
-        soil = dataSet.ReadAsArray().astype(np.float)
+        soil = dataSet.ReadAsArray().astype(float)
 
         soilsizex = soil.shape[0]
         soilsizey = soil.shape[1]

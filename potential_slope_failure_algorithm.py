@@ -84,11 +84,11 @@ class ProcessingPotentialSlopeFailureAlgorithm(QgsProcessingAlgorithm):
                 self.tr('Cohesive soils (1 = Cohesive soil, 0 = Other'), None, False))
         self.addParameter(QgsProcessingParameterNumber(self.SEARCH_DIR, 
             self.tr('Number of search directions:'), 
-            QgsProcessingParameterNumber.Integer,
+            QgsProcessingParameterNumber.Type.Integer,
             QVariant(16), True, minValue=0, maxValue=100))
         self.addParameter(QgsProcessingParameterNumber(self.SLOPE_ANGLE, 
             self.tr('Slope failure angle:'), 
-            QgsProcessingParameterNumber.Double,
+            QgsProcessingParameterNumber.Type.Double,
             QVariant(10), True, minValue=0, maxValue=100))
         self.addParameter(QgsProcessingParameterRasterDestination(self.OUTPUT_RASTER,
             self.tr("Output raster file"),
